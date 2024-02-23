@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+    {% load crispy_forms_tags %}
+
+    <div class="container">
+
+      <center><h3>Ingrese informacion basica para calcular los aportes a AFAP y FONASA:</h3></center>
+
+      <div class="col-md-6 offset-md-3">
+        <form action="" method="POST">
+          {% csrf_token %}
+          
+          {{ form|crispy }}
+
+          <br>
+          <button type="submit" class="btn btn-primary">
+              Calcular Aportes
+          </button>
+
+      </form>
+      </div>
+      <br>
+
+    </div> <br><br>
+
+    {% if aportes_empleado %}
+    <h4>Aportes Correspondientes a: 
+      <i style="color: red;" > 
+        {{ aportes_empleado.nombre_empleado }} {{ aportes_empleado.apellido_empleado }}
+      </style>
+      </i>
+    </h4><br>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Apellido, Nombre</th>
+                <th>Salario Base</th>
+                <th>Bonificación</th>
+                <th>Asignación</th>
+                <th>Base Imponible</th>
+                <th>Pago AFAP</th>
+                <th>Fonasa</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>{{ aportes_empleado.apellido_empleado }}, {{ aportes_empleado.nombre_empleado }}</td>
+                  <td>{{ aportes_empleado.salario_base }}</td>
+                  <td>{{ aportes_empleado.bonifica|floatformat:2 }}</td>
+                  <td>{{ aportes_empleado.asigna|floatformat:2 }}</td>
+                  <td>{{ aportes_empleado.base_imponible|floatformat:2 }}</td>
+                  <td>{{ aportes_empleado.pago_afap|floatformat:2 }}</td>
+                  <td>{{ aportes_empleado.pago_fonasa|floatformat:2 }}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="container">
+          <br>
+          <h4>Ingresa con tu cuenta o regístrate para descargar el listado de tus calculos anteriores</h4><br>
+            <center>
+              <button type="button" class="btn btn-primary" href="{% url 'register' %}">Ingresar</button>
+            </center><br><br><br>
+        </div>
+
+  {% endif %}
+
+    {% endblock %}

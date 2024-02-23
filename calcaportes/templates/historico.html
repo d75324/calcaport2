@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+    <h2>Historico</h2>
+    <div class="container">
+        <h3>Método de Cálculo de los Aportes</h3>
+        <p>Los valores se calcularon de la siguiente forma:</p>
+        <ul>
+          <li><strong>Salario Base</strong>: Es un dato aportado</li>
+          <li><strong>Bonificación</strong>: Se calcula en base al 1% del Salario Base por mes trabajado</li>
+          <li><strong>Asignación</strong>: Es el 5% del salario por cada hijo menor de edad</li>
+          <li><strong>Base Imponble</strong>: Es la suma del Salario Base, la Bonificación y la Asignación</li>
+          <li><strong>Pago a AFAP</strong>: Es el monto que se debe aportar a la AFAP</li>
+          <li><strong>Pago a <a href="https://www.bps.gub.uy/10310/fondo-nacional-de-salud-fonasa.html">FONASA</a></strong>: Es el monto que se debe aportar al Fondo Nacional de Salúd</li>
+        </ul>
+    </div><hr><br>
+    
+    <div class="container">
+        <div class="container">
+          <h3>Descargue el histórico de datos:</h3><br>
+          <center>
+            <a href="{% url 'exportar' %}" class="btn btn-primary">Descargar como CSV</a>
+          </center>
+          <br><br><br>
+        </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Salario Base</th>
+                <th>Bonificación</th>
+                <th>Asignación</th>
+                <th>Base Imponible</th>
+                <th>Pago AFAP</th>
+                <th>Fonasa</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for empleado_for in empleados %}
+                <tr>
+                  <td><a href="/empleado/{{ empleado_for.creador }}/">{{ empleado_for.apellido_empleado }}, {{ empleado_for.nombre_empleado }}</a></td>
+                  <td>{{ empleado_for.salario_base }}</td>
+                  <td>{{ empleado_for.bonifica|floatformat:2 }}</td>
+                  <td>{{ empleado_for.asigna|floatformat:2 }}</td>
+                  <td>{{ empleado_for.base_imponible|floatformat:2 }}</td>
+                  <td>{{ empleado_for.pago_afap|floatformat:2 }}</td>
+                  <td>{{ empleado_for.pago_fonasa|floatformat:2 }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div><br>    
+    {% endblock %}

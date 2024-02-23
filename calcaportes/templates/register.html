@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+    <div class="col-md-6 offset-md-3">
+        <div class="container"><h2>Ingrese</h2> 
+            <p style="color: brown;">si ya tiene un Usuario creado, para poder acceder a sus registros históricos</p>
+        </div>
+        <form method="POST" action="{% url 'empleado' %}">
+            {% csrf_token %}
+            <form>
+                <div class="mb-3">
+                  <input type="text" class="form-control" name="username", placeholder="Usuario" required> <br>
+                </div>
+                <div class="mb-3">
+                  <input type="password" class="form-control" name="password", placeholder="Password" rerquired> <br>
+                </div> <br>
+                <center><button type="submit" class="btn btn-primary">Ingrese</button></center>
+            </form>
+        </form><br><hr>
+        <div class="container"><h2>o Registrese</h2>
+            <p style="color: brown;">para poder usar la aplicacion.</p>
+        </div>
+        <form method="POST" action="">
+
+            {% csrf_token %}
+            {% if form.errors %}
+
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Hay un error en el Formulario
+                    {% for field in form %}
+                        {% if field.errors %}
+                            {{ field.errors }}
+                        {% endif %}
+                    {% endfor %}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            
+            {% endif %}
+            {{ form.as_p }}
+
+            <br>
+            <center><button type="submit" class="btn btn-primary">Registrarse</button></center>
+        </form><br><br><br><br>
+
+
+    </div>
+    {% endblock %}
