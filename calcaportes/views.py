@@ -93,7 +93,7 @@ def exportar_a_csv(request):
         nombre_completo = f"{dato_for.nombre_empleado} {dato_for.apellido_empleado}"
         user = request.user
         username = user.username # Ahora 'username' contiene el nombre de usuario
-        writer.writerow(
+        writer.writerow([
                         username,
                         dato_for.created_at,
                         nombre_completo,
@@ -103,5 +103,5 @@ def exportar_a_csv(request):
                         dato_for.base_imponible(),
                         dato_for.pago_afap(),
                         dato_for.pago_fonasa()
-                        )  # Datos que van a ir en cada fila
+        ])  # Datos que van a ir en cada fila
     return response

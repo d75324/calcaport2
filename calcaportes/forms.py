@@ -43,5 +43,3 @@ class FormularioRegistroUsuarios(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirme la Password ingresada'
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Re-ingrese su password a modo de verificacion.</small></span>'
-
-
